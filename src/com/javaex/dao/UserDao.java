@@ -187,7 +187,7 @@ public class UserDao {
 	}
 	
 	// 유저수정
-		public int getUpdate(int no, String pass, String name, String gender) {
+		public int userUpdate(int no, String pass, String name, String gender) {
 
 			int count = -1;
 			
