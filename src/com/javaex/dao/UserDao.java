@@ -187,7 +187,7 @@ public class UserDao {
 	}
 	
 	// 유저수정
-		public int getUpdate(String pass, String name, String gender) {
+		public int getUpdate(int no, String pass, String name, String gender) {
 
 			int count = -1;
 			
@@ -208,8 +208,9 @@ public class UserDao {
 				pstmt.setString(1, pass);
 				pstmt.setString(2, name);
 				pstmt.setString(3, gender);
+				pstmt.setInt(4, no);
 				
-				pstmt.executeUpdate();
+				count = pstmt.executeUpdate();
 
 				// 4.결과처리
 				System.out.println(count + "건이 수정되었습니다.");
