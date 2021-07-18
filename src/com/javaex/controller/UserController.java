@@ -158,25 +158,29 @@ public class UserController extends HttpServlet {
 							//결과확인
 							System.out.println("[UserController.modify]");
 							
+			HttpSession session = request.getSession();
+			int no = ((UserVo)session.getAttribute("authUser")).getNo();
+							
+							//세션 no 추출
+							System.out.println("세션 no: " + no);
+			//db조회
+			UserDao userDao = new UserDao();
+			UserVo userVo = userDao.getUserInfo(no);	
+			
+							//유저정보 확인
+							System.out.println("유저정보" + userVo);
+					
 			//파라미터 추출
-			int no = Integer.parseInt(request.getParameter("no"));
-			String id = request.getParameter("id");
+			String id = userVo.getId();
 			String pass = request.getParameter("password");
 			String name = request.getParameter("name");
-			String gender = request.getParameter("gender");
-			
-							//파라미터 값 확인
-							System.out.println("파라미터 값: no=" + no + ", " + id + ", pass=" + pass + ", name=" + name + ", gender=" + gender);
+			String gender = request.getParameter("gender");				
 			
 			//db update
-			UserDao userDao = new UserDao();
 			userDao.getUpdate(no, pass, name, gender);
 			
-			//세션 갱신
-			HttpSession session = request.getSession();
-			//userVo = db에서 getUser에 의한 정보 추출 (세션 저장용)
-			UserVo userVo = userDao.getUser(id, pass);
-			//세션 셋어트리뷰트
+			//세션갱신
+			userVo = userDao.getUser(id, pass);
 			session.setAttribute("authUser", userVo);
 			
 			//리다이렉트

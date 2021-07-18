@@ -97,8 +97,6 @@
 							<div class="button-area">
 								<button type="submit" id="btn-submit">회원정보수정</button>
 								<input type="hidden"name="action" value="modify">
-								<input type="hidden"name="id" value="<%=userInfo.getId() %>">
-								<input type="hidden"name="no" value="<%=userInfo.getNo() %>">
 							</div>
 
 						</form>
