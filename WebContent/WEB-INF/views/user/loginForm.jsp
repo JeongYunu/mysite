@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%
-	String result = request.getParameter("result");
-%>
+<!-- el/jstl -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -62,9 +60,9 @@
 							</div>
 							
 							<!-- 로그인실패 문구 -->
-							<%if("fail".equals(result)) {%>
+							<c:if test="${ param.result eq 'fail' }">
 								<p>아이디와 비밀번호를 확인해주세요.</p>
-							<%} %>
+							</c:if>
 							
 							<!-- 버튼영역 -->
 							<div class="button-area">

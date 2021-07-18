@@ -112,10 +112,8 @@ public class UserController extends HttpServlet {
 				
 				//리다이렉트 --> loginForm 페이지
 				WebUtill.redirect(request, response, "/mysite/user?action=loginForm&result=fail");
+			
 			}
-			
-			
-			
 							
 		}else if("logout".equals(action)) {		//로그아웃
 			

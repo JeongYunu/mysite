@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@ page import="com.javaex.vo.UserVo" %>
-<%
-	UserVo userInfo = (UserVo)request.getAttribute("userInfo"); //(UserVo) 형변환
-	System.out.println("어트리뷰트 확인: " + userInfo);
-%>
-
+<!-- el/jstl -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -56,40 +51,42 @@
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
-								<span class="text-large bold"><%=userInfo.getId() %></span>
+								<span class="text-large bold">${ userInfo.id }</span>
 							</div>
 
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> 
-								<input type="password" id="input-pass" name="password" value="<%=userInfo.getPw() %>" placeholder="비밀번호를 입력하세요">
+								<input type="password" id="input-pass" name="password" value="${ userInfo.pw }" placeholder="비밀번호를 입력하세요">
 							</div>
 
 							<!-- 이름 -->
 							<div class="form-group">
 								<label class="form-text" for="input-name">이름</label> 
-								<input type="text" id="input-name" name="name" value="<%=userInfo.getName() %>" placeholder="이름을 입력하세요">
+								<input type="text" id="input-name" name="name" value="${ userInfo.name }" placeholder="이름을 입력하세요">
 							</div>
 
 							<!-- 성별 -->
 							<div class="form-group">
 							<span class="form-text">성별</span> 
-							<%
-							if("male".equals(userInfo.getGender())){ %>
-								<label for="rdo-male">남</label> 
-								<input type="radio" id="rdo-male" name="gender" value="male" checked="checked"> 
-								<label for="rdo-female">여</label> 
-								<input type="radio" id="rdo-female" name="gender" value="female">
-							<%
-							}else {
-							%>
-								<label for="rdo-male">남</label> 
-								<input type="radio" id="rdo-male" name="gender" value="male"> 
-								<label for="rdo-female">여</label> 
-								<input type="radio" id="rdo-female" name="gender" value="female" checked="checked">
-							<%
-							}
-							%>	
+							
+							<c:choose>
+							
+								<c:when test="${ userInfo.gender eq 'male' }">
+									<label for="rdo-male">남</label> 
+									<input type="radio" id="rdo-male" name="gender" value="male" checked="checked"> 
+									<label for="rdo-female">여</label> 
+									<input type="radio" id="rdo-female" name="gender" value="female">
+								</c:when>
+								
+								<c:when test="${ userInfo.gender eq 'female' }">
+									<label for="rdo-male">남</label> 
+									<input type="radio" id="rdo-male" name="gender" value="male"> 
+									<label for="rdo-female">여</label> 
+									<input type="radio" id="rdo-female" name="gender" value="female" checked="checked">
+								</c:when>
+								
+							</c:choose>
 
 							</div>
 
