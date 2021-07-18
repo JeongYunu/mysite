@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- el/jstl -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
-<%
-String no = request.getParameter("no");
-System.out.println(no);
-%>
 
 <!DOCTYPE html>
 <html>
@@ -64,14 +61,14 @@ System.out.println(no);
 							</tr>
 						</table>
 						
-						<input type='hidden' name="no" value="<%=no%>"> 
+						<input type='hidden' name="no" value="${ param.no }"> 
 						<input type='hidden' name="action" value="delete">
 						
 					</form>
 
 				</div>
 				<!-- //guestbook -->
-			</div>
+			</div> 
 			<!-- //content  -->
 
 		</div>

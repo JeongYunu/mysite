@@ -8,7 +8,7 @@ List<GuestBookVo> guestBookList = (List<GuestBookVo>) request.getAttribute("gues
 System.out.println(guestBookList);
 %>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
 <meta charset="UTF-8">

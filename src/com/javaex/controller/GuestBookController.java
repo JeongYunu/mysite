@@ -27,7 +27,7 @@ public class GuestBookController extends HttpServlet {
 							System.out.println("[guestbookController]");
 
 		// 파라미터 값 추출
-		String action = request.getParameter("action");
+		String action = request.getParameter("action"); 
 		
 							//파라미터 값 확인
 							System.out.println("파라미터 값: " + action);
