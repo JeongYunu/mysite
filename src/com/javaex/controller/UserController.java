@@ -164,24 +164,28 @@ public class UserController extends HttpServlet {
 							//세션 no 추출
 							System.out.println("세션 no: " + no);
 			//db조회
-			UserDao userDao = new UserDao();
-			UserVo userVo = userDao.getUserInfo(no);	
+			//UserDao userDao = new UserDao();
+			//UserVo userVo = userDao.getUserInfo(no);	
 			
 							//유저정보 확인
-							System.out.println("유저정보" + userVo);
+							//System.out.println("유저정보" + userVo);
 					
 			//파라미터 추출
-			String id = userVo.getId();
+			//String id = userVo.getId();
 			String pass = request.getParameter("password");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");				
 			
 			//db update
-			userDao.getUpdate(no, pass, name, gender);
+			UserDao userDao = new UserDao();
+			userDao.userUpdate(no, pass, name, gender);
 			
 			//세션갱신
-			userVo = userDao.getUser(id, pass);
-			session.setAttribute("authUser", userVo);
+			//userVo = userDao.getUser(id, pass);
+			//session.setAttribute("authUser", userVo);
+			
+			//세션수정
+			((UserVo)session.getAttribute("authUser")).setName(name);
 			
 			//리다이렉트
 			WebUtill.redirect(request, response, "/mysite/main");
