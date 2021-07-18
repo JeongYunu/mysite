@@ -41,7 +41,7 @@
 							
 							(자유롭게 꾸며보세요!!)<br> <br>
 							
-							<br> <a class="" href="">[방명록에 글 남기기]</a>
+							<br> <a class="" href="/mysite/gbc?action=addlist">[방명록에 글 남기기]</a>
 						</p>
 					</div>
 					<!-- //greetings -->
