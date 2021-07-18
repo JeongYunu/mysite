@@ -24,17 +24,18 @@ public class GuestBookController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 							//결과확인
-							System.out.println("[guestbook 컨트롤러]");
-						
+							System.out.println("[guestbookController]");
 
-		// action값 읽기 --> 업무구분
+		// 파라미터 값 추출
 		String action = request.getParameter("action");
-		System.out.println(action);
+		
+							//파라미터 값 확인
+							System.out.println("파라미터 값: " + action);
 
-		if ("addList".equals(action)) {		// 리스트_등록폼
+		if ("addlist".equals(action)) {		// 리스트_등록폼
 			
 							//결과확인
-							System.out.println("[리스트_등록폼]");
+							System.out.println("[guestbookController.addlist]");
 							
 			//
 			GuestBookDao guestBookDao = new GuestBookDao();
@@ -44,12 +45,12 @@ public class GuestBookController extends HttpServlet {
 			request.setAttribute("guestBookList", guestBookList);
 			
 			//포워드
-			WebUtill.forword(request, response, "/WEB-INF/addList.jsp");
+			WebUtill.forword(request, response, "/WEB-INF/views/guestbook/addList.jsp");
 
 		} else if ("add".equals(action)) {
 			
 							//결과확인
-							System.out.println("[등록]");
+							System.out.println("[guestbookController.add]");
 
 			// 파라미터 값 추출
 			String name = request.getParameter("name");
@@ -64,27 +65,28 @@ public class GuestBookController extends HttpServlet {
 			int count = guestBookDao.guestBookInsert(guestBookVo);
 
 			// 리다이렉트
-			WebUtill.redirect(request, response, "/guestbook2/gbc?action=addList");
+			WebUtill.redirect(request, response, "/mysite/gbc?action=addlist");
 
 		} else if ("dForm".equals(action)) {
 			
 							//결과확인
-							System.out.println("[삭제폼]");
+							System.out.println("[guestbookController.deleteForm]");
 
 			// 파라미터 꺼내기
+			//int no = Integer.parseInt(request.getParameter("no"));
 			// 파라미터의 id값이 jsp에 필요하므로 jsp에서 파라미터의 값을 꺼내서 사용
 
 			// 포워드
-			WebUtill.forword(request, response, "/WEB-INF/deleteForm.jsp");
+			WebUtill.forword(request, response, "/WEB-INF/views/guestbook/deleteForm.jsp");
 			
 		} else if ("delete".equals(action)) {
 			
 							//결과확인
-							System.out.println("[삭제]");
+							System.out.println("[guestbookController.delete]");
 
 			// 파라미터 꺼내기
 			int no = Integer.parseInt(request.getParameter("no"));
-			String password = request.getParameter("password");
+			String password = request.getParameter("pass");
 
 			// vo로 만들기
 			GuestBookVo guestBookVo = new GuestBookVo();
@@ -96,7 +98,7 @@ public class GuestBookController extends HttpServlet {
 			guestBookDao.guestBookDelete(guestBookVo);
 
 			// 리다이렉트
-			WebUtill.redirect(request, response, "/guestbook2/gbc?action=addList");
+			WebUtill.redirect(request, response, "/mysite/gbc?action=addlist");
 			
 		}
 	}

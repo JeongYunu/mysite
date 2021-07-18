@@ -1,12 +1,11 @@
-  
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="com.javaex.vo.GuestBookVo" %>
-<%@ page import="java.util.List" %>
+<%@ page import="com.javaex.vo.GuestBookVo"%>
+<%@ page import="java.util.List"%>
 
 <%
-	List<GuestBookVo> guestBookList = (List<GuestBookVo>)request.getAttribute("guestBookList");
-	System.out.println(guestBookList);
+List<GuestBookVo> guestBookList = (List<GuestBookVo>) request.getAttribute("guestBookList");
+System.out.println(guestBookList);
 %>
 
 <!DOCTYPE html>
@@ -14,45 +13,118 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link href="./assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="./assets/css/guestbook.css" rel="stylesheet" type="text/css">
+
 </head>
+
 <body>
+	<div id="wrap">
 
-	<form action="./gbc" method="get">
-		<table border="1" width="500px">
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name"></td>
-				<td>비밀번호</td>
-				<td><input type="password" name="pass"></td>
-			</tr>
-			<tr>
-				<td colspan="4"><textarea name="content" cols=60 rows=5></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="4"><button type="submit">확인</button></td>
-			</tr>
-		</table>
-		<input type="hidden" name="action" value="add" >
-	</form>
-	<br/>
+		<!-- header / nav -->
+		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
 
-	<% 
-		for(int i=0; i<guestBookList.size(); i++){
-	%>
-			<table border="1"  width="500px">
-				<tr>
-					<td>[<%=guestBookList.get(i).getNo() %>]</td>
-					<td><%=guestBookList.get(i).getName() %></td>
-					<td><%=guestBookList.get(i).getRegDate() %></td>
-					<td><a href="./gbc?action=dForm&no=<%=guestBookList.get(i).getNo() %>">삭제</a></td>
-				</tr>
-				<tr>
-					<td colspan=4><%=guestBookList.get(i).getContent() %></td>
-				</tr>
-			</table>
-		    <br/>
-	<% 
-		}
-	%>
+		<div id="container" class="clearfix">
+			<div id="aside">
+				<h2>방명록</h2>
+				<ul>
+					<li>일반방명록</li>
+					<li>ajax방명록</li>
+				</ul>
+			</div>
+			<!-- //aside -->
+
+			<div id="content">
+
+				<div id="content-head" class="clearfix">
+					<h3>일반방명록</h3>
+					<div id="location">
+						<ul>
+							<li>홈</li>
+							<li>방명록</li>
+							<li class="last">일반방명록</li>
+						</ul>
+					</div>
+				</div>
+				<!-- //content-head -->
+
+				<div id="guestbook">
+					<form action="./gbc" method="get">
+						<table id="guestAdd">
+							<colgroup>
+								<col style="width: 70px;">
+								<col>
+								<col style="width: 70px;">
+								<col>
+							</colgroup>
+							<tbody>
+								<tr>
+									<th><label class="form-text" for="input-uname">이름</label>
+									</td>
+									<td><input id="input-uname" type="text" name="name"></td>
+									<th><label class="form-text" for="input-pass">패스워드</label>
+									</td>
+									<td><input id="input-pass" type="password" name="pass"></td>
+								</tr>
+								<tr>
+									<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
+								</tr>
+								<tr class="button-area">
+									<td colspan="4" class="text-center"><button type="submit">등록</button></td>
+								</tr>
+							</tbody>
+
+						</table>
+						<!-- //guestWrite -->
+						<input type="hidden" name="action" value="add">
+
+					</form>
+
+					</table>
+					<!-- //guestRead -->
+
+					<%
+					for (int i = 0; i < guestBookList.size(); i++) {
+					%>
+					<table class="guestRead">
+						<colgroup>
+							<col style="width: 10%;">
+							<col style="width: 40%;">
+							<col style="width: 40%;">
+							<col style="width: 10%;">
+						</colgroup>
+						<tr>
+							<td>[<%=guestBookList.get(i).getNo()%>]
+							</td>
+							<td><%=guestBookList.get(i).getName()%></td>
+							<td><%=guestBookList.get(i).getRegDate()%></td>
+							<td><a href="./gbc?action=dForm&no=<%=guestBookList.get(i).getNo()%>">삭제</a></td>
+						</tr>
+						<tr>
+							<td colspan=4><%=guestBookList.get(i).getContent()%></td>
+						</tr>
+					</table>
+					<br>
+					<%
+					}
+					%>
+					<!-- //guestRead -->
+
+				</div>
+				<!-- //guestbook -->
+
+			</div>
+			<!-- //content  -->
+		</div>
+		<!-- //container  -->
+
+		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<!-- //footer -->
+	</div>
+	<!-- //wrap -->
+
 </body>
+
 </html>
+
