@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%@ page import="com.javaex.vo.UserVo" %>
-<%
-	UserVo authUser = (UserVo)session.getAttribute("authUser"); //(UserVo) 형변환
-	System.out.println("세션확인: " + authUser);
-%>
+<!-- el/jstl -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -93,12 +89,12 @@
 								<li><a href="">▶</a></li>
 							</ul>
 
-
 							<div class="clear"></div>
 						</div>
-						<% if(authUser != null) { %>
+						
+						<c:if test="${ !empty authUser }">
 							<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
-						<% } %>
+						</c:if>
 
 					</div>
 					<!-- //list -->
