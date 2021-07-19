@@ -19,7 +19,7 @@ public class GuestBookController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		 
 		// post일때 한글형식
 		request.setCharacterEncoding("UTF-8");
 		
