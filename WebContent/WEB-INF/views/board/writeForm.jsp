@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- el/jstl -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -15,8 +17,8 @@
 	<div id="wrap">
 
 		<!-- header / nav -->
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
-
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		
 		<div id="container" class="clearfix">
 
 			<jsp:include page="/WEB-INF/views/includes/aside.jsp"></jsp:include>
@@ -69,7 +71,7 @@
 		<!-- //container  -->
 
 
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->
