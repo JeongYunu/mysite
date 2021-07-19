@@ -22,7 +22,7 @@
 		<div id="container" class="clearfix">
 			<div id="aside">
 				<h2>방명록</h2>
-				<ul>
+				<ul> 
 					<li>일반방명록</li>
 					<li>ajax방명록</li>
 				</ul>
