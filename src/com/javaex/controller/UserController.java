@@ -19,105 +19,104 @@ public class UserController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		//텍스트 인코딩
+		// 텍스트 인코딩
 		request.setCharacterEncoding("UTF-8");
 		
-							//결과확인
+							// 결과확인
 							System.out.println("[UserController]");
 		
-		//파라미터 값 추출
+		// 파라미터
 		String action = request.getParameter("action");
-							//파라미터 값 확인
+							// 파라미터 값
 							System.out.println("파라미터 값: " + action);
 		
 		if("joinForm".equals(action)) {		//회원가입 폼
 							
-							//결과확인
+							// 결과확인
 							System.out.println("[UserController.joinForm]");
 			
-			//회원가입폼 포워드
+			// 포워드
 			WebUtill.forword(request, response, "./WEB-INF/views/user/joinForm.jsp");
 			
-		}else if("join".equals(action)) {	//회원가입
+		}else if("join".equals(action)) {	// 회원가입
 							
-							//결과확인
+							// 결과확인
 							System.out.println("[UserController.join]");
 							
-			//파라미터 꺼내기
+			// 파라미터
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			
-							//파라미터 값 확인
+							// 파라미터 값
 							System.out.println("파라미터 값: id=" + id + ", pw=" + pw + 
 									", name=" + name + ", gender=" + gender);
 			
-			//vo만들기
+			// vo
 			UserVo userVo = new UserVo(id, pw, name, gender);
 			
-							//userVo확인
+							// userVo
 							System.out.println(userVo);
 							
-			//dao.insert(vo) --> db저장
+			// db저장
 			UserDao userDao = new UserDao();
 			int count = userDao.userInsert(userVo);
 			
 			//포워드
 			WebUtill.forword(request, response, "./WEB-INF/views/user/joinOk.jsp");
 			
-		}else if("loginForm".equals(action)) {		//로그인 폼 
+		}else if("loginForm".equals(action)) {		// 로그인 폼 
 			
-							//결과확인
+							// 결과확인
 							System.out.println("[UserController.loginForm]");
 							
-			//포워드
+			// 포워드
 			WebUtill.forword(request, response, "./WEB-INF/views/user/loginForm.jsp");
 			
-		}else if("login".equals(action)) {		//로그인
+		}else if("login".equals(action)) {		// 로그인
 			
-							//결과확인
+							// 결과확인
 							System.out.println("[UserController.login]");
 							
-			//파라미터 값 추출				
+			// 파라미터 값		
 			String id = request.getParameter("id");				
 			String password = request.getParameter("pw");				
 			
-							//파라미터 값 확인
+							// 파라미터 값
 							System.out.println("파라미터 값: id=" + id + ", pw=" + password);
 			
-			//userVo = db에서 getUser에 의한 정보 추출 (세션 저장용)
+			// 로그인된 유저 id password 
 			UserDao userDao = new UserDao();
 			UserVo userVo = userDao.getUser(id, password);
 			
-							//추출된 db 데이터 확인
-							System.out.println("추출된 db 데이터" + userVo);
+							// db id pass
+							System.out.println("db 데이터" + userVo);
 							
 			if(userVo != null) {
 				
-				//로그인 정보와 데이터 정보가 같을경우-->세션에 데이터 저장
+				// 로그인데이터 == db데이터 --> 세션갱신(최소한의 데이터)
 				HttpSession session = request.getSession();
-				session.setAttribute("authUser", userVo); // jsp에 데이터 전달할 때 비교
+				session.setAttribute("authUser", userVo);
 				
-				//리다이렉트 --> main 페이지
+				//리다이렉트
 				WebUtill.redirect(request, response, "/mysite/main");
 				
 			}else {
 				
-								//결과확인
+								// 결과확인
 								System.out.println("로그인 실패");
 								
 				//로그인 정보와 데이터 정보가 다를경우
-				
-				
-				//리다이렉트 --> loginForm 페이지
+				//출력만할거니까 리다이렉트					
+				//리다이렉트
 				WebUtill.redirect(request, response, "/mysite/user?action=loginForm&result=fail");
 			
 			}
 							
 		}else if("logout".equals(action)) {		//로그아웃
 			
-							//결과확인
+							// 결과확인
 							System.out.println("[UserController.logout]");
 							
 			//세션에 있는 "authUser"의 정보 삭제
@@ -132,17 +131,18 @@ public class UserController extends HttpServlet {
 			
 							//결과확인
 							System.out.println("[UserController.modifyForm]");
-							
+			
+			//세션 no소환
 			HttpSession session = request.getSession();
 			int no = ((UserVo)session.getAttribute("authUser")).getNo();
 							
-							//세션 no 추출
+							//세션 no
 							System.out.println("세션 no: " + no);
 			//db조회
 			UserDao userDao = new UserDao();
 			UserVo userVo = userDao.getUserInfo(no);
 			
-							//유저정보 확인
+							//유저정보
 							System.out.println("유저정보" + userVo);
 							
 			//어트리뷰트
@@ -155,21 +155,15 @@ public class UserController extends HttpServlet {
 			
 							//결과확인
 							System.out.println("[UserController.modify]");
-							
+			
+			//세션 no소환
 			HttpSession session = request.getSession();
 			int no = ((UserVo)session.getAttribute("authUser")).getNo();
 							
-							//세션 no 추출
+							//세션 no
 							System.out.println("세션 no: " + no);
-			//db조회
-			//UserDao userDao = new UserDao();
-			//UserVo userVo = userDao.getUserInfo(no);	
-			
-							//유저정보 확인
-							//System.out.println("유저정보" + userVo);
-					
-			//파라미터 추출
-			//String id = userVo.getId();
+		
+			//파라미터
 			String pass = request.getParameter("password");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");				
@@ -177,10 +171,6 @@ public class UserController extends HttpServlet {
 			//db update
 			UserDao userDao = new UserDao();
 			userDao.userUpdate(no, pass, name, gender);
-			
-			//세션갱신
-			//userVo = userDao.getUser(id, pass);
-			//session.setAttribute("authUser", userVo);
 			
 			//세션수정
 			((UserVo)session.getAttribute("authUser")).setName(name);
