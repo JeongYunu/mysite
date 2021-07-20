@@ -1,0 +1,28 @@
+--board 테이블 
+create table board(
+    no number,
+    title varchar2(500) not null,
+    content varchar2(4000),
+    hit number,
+    reg_date date not null,
+    user_no number,
+    primary key(no),
+    constraint board_fk foreign key(user_no) references users(no)
+);
+
+--sequence 
+create sequence seq_board_no
+increment by 1
+start with 1
+nocache;
+
+--insert
+insert into board values(seq_board_no.nextval, '가입인사', '오늘새로 가입한 정윤우 입니다 잘부탁드립니다.', 0, sysdate, 1);
+
+select *
+from board;
+
+--join
+select *
+from users u, board b
+where u.no = b.user_no;
